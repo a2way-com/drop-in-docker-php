@@ -36,7 +36,7 @@ services:
  static:
   image: nginx:1.19.6-alpine
   volumes:
-   - ./src/public/:/usr/share/nginx/html/
+   - ../src/public/:/usr/share/nginx/html/
  proxy:
   image: $PROXY_IMAGE
   build:
@@ -44,6 +44,5 @@ services:
    dockerfile: ./Dockerfiles/proxy.Dockerfile
   ports:
    - $PROXY_PORT:80
-  environment:
-   - PHP_FPM_HOST=app
-   - STATIC_CONTENT_HOST=static
+  env_file:
+    - ./env/proxy.env
