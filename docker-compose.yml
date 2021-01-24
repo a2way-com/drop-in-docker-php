@@ -29,14 +29,14 @@ services:
     GID: $GID
     UID: $UID
   volumes:
-   - ../src/:/var/www/html/
+   - $APP_VOLUMES_SRC:/var/www/html/
    - ./vols/app/docker-user-home/:/home/www-data/
   env_file:
    - ./env/app.env
  static:
   image: nginx:1.19.6-alpine
   volumes:
-   - ../src/public/:/usr/share/nginx/html/
+   - $STATIC_VOLUMES_PUBLIC:/usr/share/nginx/html/
  proxy:
   image: $PROXY_IMAGE
   build:
