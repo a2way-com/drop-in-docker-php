@@ -19,7 +19,7 @@ services:
   image: mailhog/mailhog:v1.0.1
   ports:
    - $MAILHOG_SMTP_PORT:1025
-   - $MAILGOG_UI_PORT:8025
+   - $MAILHOG_UI_PORT:8025
  app:
   image: $APP_IMAGE
   build:
