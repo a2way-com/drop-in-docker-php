@@ -39,6 +39,12 @@ Download this repo as a ZIP, extract it, copy it, and then paste it into your pr
 
 ## Configuring
 
+First, open your shell's "RC File" (Eg: `~/.bashrc` and `~/.zshrc`.), and add the following line to the end of it:
+
+```bash
+export UID=<Your Linux User ID.>
+```
+
 - Make a copy of `tmp.env` as `.env`.
 - Make copies of all the `tmp.*.env` files in the `env` directory. The resulting copies should have their original copies' names without the "tmp" part (Eg: `tmp.adminer.env` should be copied as `adminer.env`.).
 
@@ -49,7 +55,6 @@ Download this repo as a ZIP, extract it, copy it, and then paste it into your pr
 | ADMINER_PORT | Port to run Adminer on. |
 | APP_IMAGE | Name to tag _App_ Docker Image with. |
 | APP_VOLUMES_SRC | Path to source code relative to `drop-in-docker-php/docker-compose.yml`. |
-| GID | Your own Linux User Group ID. |
 | MAILHOG_SMTP_PORT | Port for MailHog to listen for SMTP traffic. |
 | MAILHOG_UI_PORT | Port for MailHog to expose UI. |
 | MYSQL_PORT | Port for MySQL to listen to. |
@@ -76,13 +81,38 @@ You can put any app specific environment variable key value pairs here.
 
 You can put any other environment variables for MySQL here too.
 
-### `env/tmp.proxy.env`
+### `env/proxy.env`
 
 | Key | Description |
 | --- | --- |
 | PHP_FPM_HOST | PHP FPM server address. This should match the service name for _App_ in in `docker-compose.yml`. |
 | PUBLIC_PATH | Path to public files directory relative to `drop-in-docker-php/docker-compose.yml`. |
 | STATIC_CONTENT_HOST | Static content server address. This should match the service name for _Static_ in in `docker-compose.yml`. |
+
+## Using
+
+First, install and configure _A2Way Drop-in-Docker PHP_ as described in above sections.
+
+If your project's source directory is in the parent level of the `drop-in-docker-php` directory, set `APP_VOLUMES_SRC` variable's value to `../`. If the source directory is in the sibling level, and the source directory's name is "src", set `APP_VOLUMES_SRC`'s value to `../src/`. Be sure to replace "src" with your own source directory's name. Basically, you have to put the path to the source directory relative to the `docker-compose.yml` file.
+
+If your project use a sub-directory of your souce directory as the public directory, set its path relative to the `docker-compose.yml` file as the value of `STATIC_VOLUMES_PUBLIC`. Also, in `env/proxy.env`, set that sub directory's path relative to the source directory as the value of `PUBLIC_PATH`. Otherwise, if your public directory is the same as your source directory, set `STATIC_VOLUMES_PUBLIC`'s value to the relative path to the source directory, and set `PUBLIC_PATH` to `./`.
+
+Then, go inside the `drop-in-docker-php` directory, and run `make up` to start your project in Docker.
+
+### Available `make` Commands
+
+| Command | Description |
+| --- | --- |
+| down | Stops the development environment. |
+| shell | Logs in to the Docker Container for the App. |
+| up | Starts the development environment. |
+| up-f | Starts the development environment in foreground, so you can view logs from the containers. |
+
+## Extending
+
+This is just a starter. You have to customize this to fit your project (Eg: Add more services to `docker-compose.yml` and add more commands to Dockerfiles.). You are expected to know how to work with _Docker_ and _Docker Compose_ to use this.
+
+If you think your addition is common enough and it should be included by default, feel free to send a Pull Request to https://github.com/a2way-com/drop-in-docker-php.
 
 ## Legal
 
