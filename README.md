@@ -108,6 +108,21 @@ Then, go inside the `drop-in-docker-php` directory, and run `make up` to start y
 | up | Starts the development environment. |
 | up-f | Starts the development environment in foreground, so you can view logs from the containers. |
 
+## Changes Required for Common Usecases
+
+### Running Laravel
+
+Add the following lines to `Dockerfiles/app.Dockerfile`, just under the `RUN apk --update add shadow` line:
+
+```
+RUN apk --update add php-session
+RUN apk --update add php-tokenizer
+RUN apk --update add php-xml
+RUN apk --update add php-dom
+RUN apk --update add php-xmlwriter
+RUN apk --update add php-fileinfo
+```
+
 ## Extending
 
 This is just a starter. You have to customize this to fit your project (Eg: Add more services to `docker-compose.yml` and add more commands to Dockerfiles.). You are expected to know how to work with _Docker_ and _Docker Compose_ to use this.
