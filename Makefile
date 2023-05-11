@@ -1,8 +1,8 @@
 down:
-	docker-compose down --remove-orphans
+	docker compose down --remove-orphans
 shell:
-	docker-compose exec -u ${UID}:${UID} app sh
+	docker compose exec -u ${UID}:${UID} app sh
 up:
-	docker-compose up --build --remove-orphans -d
+	docker compose up --build --remove-orphans -d
 up-f:
-	docker-compose up --build --remove-orphans
+	docker compose up --build --remove-orphans

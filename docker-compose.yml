@@ -1,7 +1,8 @@
-version: '3.4'
+version: '3.8'
+name: 'drop-in-docker-php'
 services:
  mysql:
-  image: mysql:5.7.32
+  image: mysql:8.0.33
   env_file:
    - ./env/mysql.env
   ports:
@@ -10,7 +11,7 @@ services:
    - ./vols/mysql/data/:/var/lib/mysql/
   user: $UID:$UID
  adminer:
-  image: adminer:4.7.8-standalone
+  image: adminer:4.8.1-standalone
   env_file:
    - ./env/adminer.env
   ports:
@@ -33,7 +34,7 @@ services:
   env_file:
    - ./env/app.env
  static:
-  image: nginx:1.19.6-alpine
+  image: nginx:1.24.0-alpine3.17
   volumes:
    - $STATIC_VOLUMES_PUBLIC:/usr/share/nginx/html/
  proxy:
