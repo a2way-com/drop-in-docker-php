@@ -1,4 +1,4 @@
-FROM php:8.2.5-fpm-alpine3.17
+FROM php:8.3.7-fpm-alpine3.19
 ARG UID
 RUN apk --update add shadow
 RUN usermod -u $UID www-data && groupmod -g $UID www-data
